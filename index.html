@@ -9,7 +9,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" src="js/comparison_table.js"></script>
-	
+
 <!--    Originally from here:
 	    http://blog.codekills.net/archives/89-Equality-in-JavaScript.html
 
@@ -34,6 +34,11 @@
 				</a>
 			</li>
 			<li>
+				<a href="#fake-equals">
+					fake == (casts both to bool if either is a bool)
+				</a>
+			</li>
+			<li>
 				<a href="#if-statement">
 					If()
 				</a>
@@ -49,6 +54,12 @@
 			<h2>=== <smaller>(negated: !==)</smaller></h2>
 			<p class="description">
 				When using three equals signs for JavaScript equality testing, everything is <b>as is</b>. Nothing gets converted before being evaluated.
+			</p>
+		</div>
+		<div id="fake-equals">
+			<h2>== <smaller>(negated: !=)</smaller></h2>
+			<p class="description">
+				What could have been. (casts both to bool if either is a bool)
 			</p>
 		</div>
 		<div id="if-statement">
@@ -70,6 +81,7 @@
 
 	buildComparisonTable(values, "==").appendTo("#two-equals")
 	buildComparisonTable(values, "===").appendTo("#three-equals")
+	buildComparisonTable(values, "fake==").appendTo("#fake-equals")
 	buildComparisonTableForIf(values).appendTo("#if-statement")
 
 	$('#tabs').tabs();

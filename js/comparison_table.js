@@ -17,7 +17,7 @@
       /*
       The goal here is to get a string that evaluates to the desired
       value. This string is set to object.asString
-      
+
       For complicated cases which can't be passed in JSON the value
       can be passed as a string wrapped in backticks which is evaluated
       here.
@@ -52,11 +52,24 @@
 
     ForComparison.prototype.testResults = function(fc2, comparator) {
       var evalStr;
+      var printStr;
       if (comparator == null) {
         comparator = "===";
       }
-      evalStr = "" + this.asString + comparator + fc2.asString;
-      return [evalStr, eval('(' + evalStr + ')')];
+      var lhs = this.asString;
+      var rhs = fc2.asString;
+
+      var printStr = "" + this.asString + comparator + fc2.asString;
+
+      if (comparator === 'fake==') {
+        comparator = "==";
+        if (typeof this.item === 'boolean' || typeof fc2.item === 'boolean' ) {
+          lhs = '' + Boolean(this.item);
+          rhs = '' + Boolean(fc2.item);
+        }
+      }
+      evalStr = "" + lhs + comparator + rhs;
+      return [printStr, eval('(' + evalStr + ')')];
     };
 
     ForComparison.prototype.toString = function() {
@@ -236,8 +249,8 @@
         .delegate('td.cell','mouseleave',function(){
             $(this).closest('table')
                     .find('td.highlight-cell')
-                    .removeClass('highlight-cell'); 
+                    .removeClass('highlight-cell');
         });
   };
-  
+
 }).call(this);
